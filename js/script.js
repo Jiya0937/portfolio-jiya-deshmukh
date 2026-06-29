@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     initAchievementsSectionReveal();
     initAchievementsTabs();
+    initAcademicsSectionReveal();
 });
 
 /**
@@ -721,5 +722,138 @@ function initAchievementsTabs() {
                 }
             });
         });
+    });
+}
+
+/**
+ * 18. Scroll Reveal entrance sequences for Academics Section using Intersection Observer
+ */
+function initAcademicsSectionReveal() {
+    const academicsSection = document.getElementById('academics');
+    if (!academicsSection) return;
+
+    const header = document.getElementById('academicsHeader');
+    const statsGrid = document.getElementById('academicsStatsGrid');
+    const timeline = document.getElementById('academicsTimeline');
+    const timelineItems = timeline ? timeline.querySelectorAll('.timeline-item') : [];
+    const coursework = document.getElementById('courseworkWrapper');
+
+    // Hide elements initially
+    const primaryElements = [header, statsGrid, coursework];
+    primaryElements.forEach(el => {
+        if (el) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(35px)';
+            el.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    timelineItems.forEach(item => {
+        const marker = item.querySelector('.timeline-marker');
+        const card = item.querySelector('.timeline-card');
+        
+        if (marker) {
+            marker.style.opacity = '0';
+            marker.style.transform = 'translateX(-50%) scale(0.6)';
+            marker.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+        if (card) {
+            card.style.opacity = '0';
+            const isLeft = item.classList.contains('timeline-left');
+            card.style.transform = isLeft ? 'translateX(-35px) translateY(15px)' : 'translateX(35px) translateY(15px)';
+            card.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    let statsAnimated = false;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 1. Reveal Header
+                setTimeout(() => {
+                    if (header) {
+                        header.style.opacity = '1';
+                        header.style.transform = 'translateY(0)';
+                    }
+                }, 100);
+
+                // 2. Reveal Stats Grid and Trigger Countup
+                setTimeout(() => {
+                    if (statsGrid) {
+                        statsGrid.style.opacity = '1';
+                        statsGrid.style.transform = 'translateY(0)';
+                        if (!statsAnimated) {
+                            statsAnimated = true;
+                            animateAcademicStats();
+                        }
+                    }
+                }, 280);
+
+                // 3. Staggered reveal of timeline items
+                timelineItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        const marker = item.querySelector('.timeline-marker');
+                        const card = item.querySelector('.timeline-card');
+                        
+                        if (marker) {
+                            marker.style.opacity = '1';
+                            marker.style.transform = 'translateX(-50%) scale(1)';
+                        }
+                        if (card) {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateX(0) translateY(0)';
+                        }
+                    }, 480 + index * 220);
+                });
+
+                // 4. Reveal Coursework Section
+                setTimeout(() => {
+                    if (coursework) {
+                        coursework.style.opacity = '1';
+                        coursework.style.transform = 'translateY(0)';
+                    }
+                }, 580 + timelineItems.length * 220);
+
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.05
+    });
+
+    observer.observe(academicsSection);
+}
+
+/**
+ * 19. Academic Statistics Counter Animation logic
+ */
+function animateAcademicStats() {
+    const counters = document.querySelectorAll('.academic-stat-number');
+    const duration = 1500; // 1.5s total animation speed
+
+    counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const decimals = parseInt(counter.getAttribute('data-decimals') || '0');
+        const start = 0;
+        let startTime = null;
+
+        function updateCount(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            const percentage = Math.min(progress / duration, 1);
+            
+            // Linear progression calculation
+            const current = start + percentage * (target - start);
+            counter.textContent = current.toFixed(decimals);
+
+            if (percentage < 1) {
+                requestAnimationFrame(updateCount);
+            } else {
+                counter.textContent = target.toFixed(decimals);
+            }
+        }
+
+        requestAnimationFrame(updateCount);
     });
 }
