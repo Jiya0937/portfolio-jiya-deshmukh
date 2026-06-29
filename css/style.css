@@ -1288,3 +1288,428 @@ h1, h2, h3, h4 {
     .icon-tf { right: 15px; }
 }
 
+/* ==========================================================================
+   SKILLS & TECHNOLOGIES SECTION
+   ========================================================================== */
+.skills-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 5rem 2rem;
+    overflow: hidden;
+    background-color: #F8F5F2; /* Warm off-white */
+    border-top: 1px solid var(--color-border);
+}
+
+.bg-glow-skills {
+    bottom: -10%;
+    right: 30%;
+    width: 450px;
+    height: 450px;
+    background-color: var(--color-accent-bronze);
+    opacity: 0.1;
+}
+
+/* Floating background tech icons */
+.skills-bg-icon {
+    position: absolute;
+    color: var(--about-primary-brown);
+    opacity: 0.03;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bg-icon-1 {
+    top: 12%;
+    left: 8%;
+    width: 90px;
+    height: 90px;
+    animation: floatIconY 12s ease-in-out infinite;
+}
+
+.bg-icon-2 {
+    bottom: 15%;
+    right: 6%;
+    width: 110px;
+    height: 110px;
+    animation: floatIconX 15s ease-in-out infinite;
+}
+
+.bg-icon-3 {
+    top: 50%;
+    left: 45%;
+    width: 70px;
+    height: 70px;
+    animation: floatIconY 9s ease-in-out infinite;
+}
+
+.skills-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    z-index: 2;
+}
+
+/* Centered Header */
+.skills-header {
+    text-align: center;
+    margin-bottom: 4.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skills-header-badge {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    padding: 0.6rem 1.25rem;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 1.25rem;
+    transition: var(--transition-premium);
+}
+
+.skills-header-badge:hover {
+    transform: translateY(-2px);
+    border-color: var(--about-light-accent);
+}
+
+.badge-icon-skills {
+    font-size: 1.1rem;
+}
+
+.badge-text-skills {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--about-dark-brown);
+}
+
+.skills-main-heading {
+    font-size: 3.25rem; /* ~52px */
+    font-weight: 700;
+    color: var(--about-dark-brown);
+    margin-bottom: 0.75rem;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.skills-subtitle {
+    font-size: 1.18rem; /* ~19px */
+    line-height: 1.6;
+    color: var(--about-text-secondary);
+    max-width: 650px;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* 2x2 Cards Grid */
+.skills-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.25rem;
+    width: 100%;
+}
+
+/* Individual Skill Card */
+.skills-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 35px rgba(78, 52, 46, 0.02);
+    transition: var(--transition-premium);
+    display: flex;
+    flex-direction: column;
+}
+
+.skills-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--about-light-accent);
+    box-shadow: 0 18px 45px rgba(78, 52, 46, 0.07);
+}
+
+.skills-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.skills-card-icon-wrapper {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background-color: var(--color-bg-secondary);
+    color: var(--about-primary-brown);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skills-card-icon-wrapper svg {
+    width: 22px;
+    height: 22px;
+}
+
+.skills-card-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--about-dark-brown);
+    margin: 0;
+}
+
+/* List with Progress Bars (Card 1: Programming Languages) */
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-name-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--about-text-primary);
+}
+
+.tech-inline-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--about-primary-brown);
+}
+
+/* Progress bar stylings */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-bg-secondary);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%; /* Animates via JS by adding class */
+    background: linear-gradient(90deg, var(--about-primary-brown) 30%, var(--color-accent-bronze) 100%);
+    border-radius: 10px;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Helper class triggered by JS Reveal observer */
+.revealed .progress-fill {
+    width: var(--target-width);
+}
+
+/* Sub-lists for Frontend / Backend (Card 2: Web Dev) */
+.skills-sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.skills-sub-category {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.skills-sub-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--about-primary-brown);
+    margin-bottom: 0.25rem;
+    border-left: 3px solid var(--about-primary-brown);
+    padding-left: 8px;
+    line-height: 1;
+}
+
+/* Skill badgings */
+.skills-chips-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.skill-badge {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    padding: 0.55rem 1.15rem;
+    border-radius: 30px;
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--about-text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-premium);
+    cursor: default;
+}
+
+.badge-tech-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--about-primary-brown);
+    transition: var(--transition-fast);
+}
+
+.skill-badge:hover {
+    transform: scale(1.05) translateY(-2px);
+    border-color: var(--about-primary-brown);
+    background-color: var(--color-bg-secondary);
+    box-shadow: var(--shadow-soft);
+}
+
+.skill-badge:hover .badge-tech-icon {
+    transform: rotate(10deg) scale(1.1);
+}
+
+/* Specific styling for data science card */
+.ds-chips-grid {
+    margin-bottom: 1.5rem;
+}
+
+/* SVG AI/Neural net layout container */
+.skills-ds-graphic {
+    background-color: #FAF8F6;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto; /* Push graphic to bottom of card */
+}
+
+.neural-net-svg {
+    width: 100%;
+    max-height: 90px;
+}
+
+/* Neural net animations */
+.pulse-node {
+    animation: nodePulse 3s infinite ease-in-out;
+}
+
+@keyframes nodePulse {
+    0%, 100% { transform: scale(1); opacity: 1; fill: var(--about-dark-brown); }
+    50% { transform: scale(1.3); opacity: 0.8; fill: var(--color-accent-bronze); }
+}
+
+.pulse-line-1, .pulse-line-2, .pulse-line-3 {
+    stroke-dasharray: 6 3;
+    animation: flowLine 5s linear infinite;
+}
+
+.pulse-line-2 {
+    animation-delay: 1.5s;
+}
+
+.pulse-line-3 {
+    animation-delay: 3s;
+}
+
+@keyframes flowLine {
+    to {
+        stroke-dashoffset: -20;
+    }
+}
+
+/* Soft Skills layout badges */
+.soft-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.skill-badge-soft {
+    background-color: #FAF8F6;
+    border: 1px solid var(--color-border);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--about-text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-premium);
+    cursor: default;
+}
+
+.soft-icon {
+    font-size: 1.05rem;
+    transition: var(--transition-fast);
+}
+
+.skill-badge-soft:hover {
+    transform: scale(1.04) translateY(-2px);
+    border-color: var(--about-primary-brown);
+    background-color: var(--color-card-bg);
+    box-shadow: 0 8px 20px rgba(78, 52, 46, 0.05);
+}
+
+.skill-badge-soft:hover .soft-icon {
+    transform: scale(1.2);
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT OVERRIDES FOR SKILLS
+   ========================================================================== */
+
+@media screen and (max-width: 992px) {
+    .skills-cards-grid {
+        grid-template-columns: 1fr 1fr; /* 2-column on tablet as requested */
+        gap: 1.75rem;
+    }
+    
+    .skills-main-heading {
+        font-size: 2.75rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .skills-section {
+        padding-top: 6.5rem;
+    }
+    
+    .skills-cards-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 1.5rem;
+    }
+    
+    .skills-card {
+        padding: 1.75rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .skills-main-heading {
+        font-size: 2.25rem;
+    }
+}
+
+

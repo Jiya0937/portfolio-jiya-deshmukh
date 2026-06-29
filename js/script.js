@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCVDownloadFeedback();
     initScrollSpy();
     initAboutSectionReveal();
+    initSkillsSectionReveal();
 });
 
 /**
@@ -238,4 +239,58 @@ function initAboutSectionReveal() {
     });
 
     observer.observe(aboutSection);
+}
+
+/**
+ * 9. Scroll Reveal entrance sequences for Skills Section using Intersection Observer
+ */
+function initSkillsSectionReveal() {
+    const skillsSection = document.getElementById('skills');
+    if (!skillsSection) return;
+
+    const skillsHeader = document.getElementById('skillsHeader');
+    const skillsCards = skillsSection.querySelectorAll('.skills-card');
+
+    // Set initial state for header
+    if (skillsHeader) {
+        skillsHeader.style.opacity = '0';
+        skillsHeader.style.transform = 'translateY(30px)';
+        skillsHeader.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+
+    // Set initial state for cards
+    skillsCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease';
+    });
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Reveal header
+                if (skillsHeader) {
+                    skillsHeader.style.opacity = '1';
+                    skillsHeader.style.transform = 'translateY(0)';
+                }
+
+                // Reveal cards with staggered delay
+                skillsCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        // Add revealed class to trigger progress bar animations
+                        card.classList.add('revealed');
+                    }, 200 + index * 150);
+                });
+
+                // Unobserve section once revealed
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% is visible
+    });
+
+    observer.observe(skillsSection);
 }
