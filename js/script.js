@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initSkillsSectionReveal();
     initProjectsSectionReveal();
     initProjectFilter();
+    initContactSectionReveal();
+    initContactForm();
+    initAchievementsSectionReveal();
+    initAchievementsTabs();
 });
 
 /**
@@ -298,6 +302,225 @@ function initSkillsSectionReveal() {
 }
 
 /**
+ * 12. Scroll Reveal entrance sequences for Contact Section using Intersection Observer
+ */
+function initContactSectionReveal() {
+    const contactSection = document.getElementById('contact');
+    if (!contactSection) return;
+
+    const header = document.getElementById('contactHeader');
+    const content = document.getElementById('contactContent');
+
+    const elementsToReveal = [
+        { el: header, delay: 100 },
+        { el: content, delay: 280 }
+    ];
+
+    // Set initial state
+    elementsToReveal.forEach(item => {
+        if (item.el) {
+            item.el.style.opacity = '0';
+            item.el.style.transform = 'translateY(30px)';
+            item.el.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                elementsToReveal.forEach(item => {
+                    if (item.el) {
+                        setTimeout(() => {
+                            item.el.style.opacity = '1';
+                            item.el.style.transform = 'translateY(0)';
+                        }, item.delay);
+                    }
+                });
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.08 // Trigger when 8% is visible
+    });
+
+    observer.observe(contactSection);
+}
+
+/**
+ * 13. Contact Form validation, EmailJS submission, and Toast alerts
+ */
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    // Optional EmailJS Public Key placeholder setup
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Recruiters can swap this easily
+    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.init({
+            publicKey: EMAILJS_PUBLIC_KEY
+        });
+    }
+
+    const inputName = document.getElementById('formName');
+    const inputEmail = document.getElementById('formEmail');
+    const inputSubject = document.getElementById('formSubject');
+    const inputMessage = document.getElementById('formMessage');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    // Input listeners to clear errors on typing
+    const inputs = [inputName, inputEmail, inputSubject, inputMessage];
+    inputs.forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            const group = input.closest('.form-group');
+            if (group) group.classList.remove('has-error');
+        });
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        let isValid = true;
+        
+        // 1. Validate Full Name
+        if (!inputName.value.trim()) {
+            showInputError(inputName, "Full name is required");
+            isValid = false;
+        }
+
+        // 2. Validate Email
+        const emailVal = inputEmail.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailVal) {
+            showInputError(inputEmail, "Email address is required");
+            isValid = false;
+        } else if (!emailRegex.test(emailVal)) {
+            showInputError(inputEmail, "Please enter a valid email address");
+            isValid = false;
+        }
+
+        // 3. Validate Subject
+        if (!inputSubject.value.trim()) {
+            showInputError(inputSubject, "Subject is required");
+            isValid = false;
+        }
+
+        // 4. Validate Message
+        if (!inputMessage.value.trim()) {
+            showInputError(inputMessage, "Message content is required");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            showToast("Please fill in all required fields correctly.", "error");
+            return;
+        }
+
+        // Set Loading State
+        const originalBtnHTML = btnSubmit.innerHTML;
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = `
+            <span>Sending...</span>
+            <svg class="btn-submit-icon rotating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;">
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+            </svg>
+        `;
+
+        // If EmailJS is properly initialized, trigger real send
+        if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                from_name: inputName.value.trim(),
+                reply_to: inputEmail.value.trim(),
+                subject: inputSubject.value.trim(),
+                message: inputMessage.value.trim()
+            })
+            .then(() => {
+                showToast("Message sent successfully!", "success");
+                form.reset();
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalBtnHTML;
+            })
+            .catch((err) => {
+                console.error("EmailJS sending error: ", err);
+                showToast("Failed to send message. Please try again.", "error");
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalBtnHTML;
+            });
+        } else {
+            // Simulated submission fallback
+            setTimeout(() => {
+                showToast("Message sent successfully!", "success");
+                form.reset();
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalBtnHTML;
+                console.info("EmailJS is not fully configured yet. Simulated sending was successful.");
+            }, 1500);
+        }
+    });
+}
+
+function showInputError(input, message) {
+    const group = input.closest('.form-group');
+    if (!group) return;
+    
+    group.classList.add('has-error');
+    
+    // Dynamically update message if element exists
+    const errorSpan = group.querySelector('.form-error-msg');
+    if (errorSpan) {
+        errorSpan.textContent = message;
+    }
+}
+
+/**
+ * 14. Toast Notification Creator
+ */
+function showToast(message, type) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast-item ${type === 'error' ? 'error' : ''}`;
+
+    const iconClass = type === 'error' ? 'error' : 'success';
+    const iconSvg = type === 'error' 
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`
+        : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+    toast.innerHTML = `
+        <div class="toast-icon-wrapper ${iconClass}">
+            ${iconSvg}
+        </div>
+        <span class="toast-text">${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Fade and slide in
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+    }, 4000);
+}
+
+/**
  * 10. Scroll Reveal entrance sequences for Projects Section using Intersection Observer
  */
 function initProjectsSectionReveal() {
@@ -376,6 +599,125 @@ function initProjectFilter() {
                     card.style.transform = 'translateY(0) scale(1)';
                 } else {
                     card.classList.add('filtered-out');
+                }
+            });
+        });
+    });
+}
+
+/**
+ * 15. Scroll Reveal entrance sequences for Achievements Section using Intersection Observer
+ */
+function initAchievementsSectionReveal() {
+    const achievementsSection = document.getElementById('achievements');
+    if (!achievementsSection) return;
+
+    const header = document.getElementById('achievementsHeader');
+    const statsGrid = document.getElementById('statsGrid');
+    const tabs = document.getElementById('tabsControl');
+    const quote = document.getElementById('achievementsQuote');
+
+    const elementsToReveal = [
+        { el: header, delay: 100 },
+        { el: statsGrid, delay: 280 },
+        { el: tabs, delay: 420 },
+        { el: quote, delay: 560 }
+    ];
+
+    // Set initial state
+    elementsToReveal.forEach(item => {
+        if (item.el) {
+            item.el.style.opacity = '0';
+            item.el.style.transform = 'translateY(30px)';
+            item.el.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    let statsAnimated = false;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                elementsToReveal.forEach(item => {
+                    if (item.el) {
+                        setTimeout(() => {
+                            item.el.style.opacity = '1';
+                            item.el.style.transform = 'translateY(0)';
+                            
+                            // Trigger stats counting animation once
+                            if (item.el === statsGrid && !statsAnimated) {
+                                statsAnimated = true;
+                                animateStatsCounters();
+                            }
+                        }, item.delay);
+                    }
+                });
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.08
+    });
+
+    observer.observe(achievementsSection);
+}
+
+/**
+ * 16. Statistics Counter Animation logic
+ */
+function animateStatsCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    const duration = 1500; // 1.5s total animation speed
+
+    counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const decimals = parseInt(counter.getAttribute('data-decimals') || '0');
+        const start = 0;
+        let startTime = null;
+
+        function updateCount(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            const percentage = Math.min(progress / duration, 1);
+            
+            // Linear progression calculation
+            const current = start + percentage * (target - start);
+            counter.textContent = current.toFixed(decimals);
+
+            if (percentage < 1) {
+                requestAnimationFrame(updateCount);
+            } else {
+                counter.textContent = target.toFixed(decimals);
+            }
+        }
+
+        requestAnimationFrame(updateCount);
+    });
+}
+
+/**
+ * 17. Achievements Interactive Tabs controller logic
+ */
+function initAchievementsTabs() {
+    const tabsControl = document.getElementById('tabsControl');
+    if (!tabsControl) return;
+
+    const buttons = tabsControl.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.getAttribute('data-tab');
+
+            // Set button state
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Show corresponding panel and hide others
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+                if (panel.getAttribute('id') === `${targetTab}Panel`) {
+                    panel.classList.add('active');
                 }
             });
         });

@@ -11,6 +11,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -29,6 +33,7 @@
                 <a href="#about" class="nav-item">About</a>
                 <a href="#skills" class="nav-item">Skills</a>
                 <a href="#projects" class="nav-item">Projects</a>
+                <a href="#achievements" class="nav-item">Achievements</a>
                 <a href="#contact" class="nav-item">Contact</a>
             </nav>
             <div class="nav-cta-wrapper">
@@ -76,7 +81,7 @@
                     <!-- Interactive Call To Actions -->
                     <div class="hero-actions">
                         <a href="resume.pdf" download="Jiya_Deshmukh_Resume.pdf" class="btn btn-primary" id="btnDownload">
-                            <span>Download CV</span>
+                            <span>Download Resume</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -643,6 +648,338 @@
             </div>
         </section>
 
+        <!-- Achievements & Certifications Section -->
+        <section id="achievements" class="achievements-section">
+            <!-- Background Decorative grids -->
+            <div class="bg-decorative">
+                <div class="bg-grid"></div>
+                <div class="bg-glow bg-glow-achievements"></div>
+            </div>
+
+            <div class="achievements-container">
+                <!-- Section Header -->
+                <div class="achievements-header" id="achievementsHeader">
+                    <div class="achievements-header-badge">
+                        <span class="badge-icon-achievements">🏆</span>
+                        <span class="badge-text-achievements">Achievements & Recognition</span>
+                    </div>
+                    <h2 class="achievements-main-heading">Achievements & Certifications</h2>
+                    <p class="achievements-subtitle">
+                        A showcase of my certifications, technical accomplishments, and continuous learning journey in Artificial Intelligence, Data Science, and Software Development.
+                    </p>
+                </div>
+
+                <!-- Achievement Stats Section -->
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Card 1: Projects Completed -->
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="10">0</span><span class="stat-suffix">+</span>
+                        </div>
+                        <h4 class="stat-title">Projects Completed</h4>
+                    </div>
+
+                    <!-- Card 2: Certifications Earned -->
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="6">0</span><span class="stat-suffix">+</span>
+                        </div>
+                        <h4 class="stat-title">Certifications Earned</h4>
+                    </div>
+
+                    <!-- Card 3: Hackathons & Competitions -->
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="3">0</span><span class="stat-suffix">+</span>
+                        </div>
+                        <h4 class="stat-title">Hackathons & Competitions</h4>
+                    </div>
+
+                    <!-- Card 4: Current CGPA -->
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="8.36" data-decimals="2">0.00</span>
+                        </div>
+                        <h4 class="stat-title">Current CGPA</h4>
+                    </div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="tabs-control" id="tabsControl">
+                    <button class="tab-btn active" data-tab="certifications">
+                        <i class="fa-solid fa-certificate"></i> Certifications
+                    </button>
+                    <button class="tab-btn" data-tab="achievements">
+                        <i class="fa-solid fa-trophy"></i> Achievements
+                    </button>
+                </div>
+
+                <!-- Tab Panels Container -->
+                <div class="tab-panels">
+                    
+                    <!-- PANEL 1: Certifications Tab Grid -->
+                    <div class="tab-panel active" id="certificationsPanel">
+                        <div class="certifications-grid">
+                            
+                            <!-- Featured Certification 1: Microsoft Fabric -->
+                            <div class="cert-card featured-cert">
+                                <div class="cert-thumbnail-wrapper">
+                                    <img src="assets/cert5.png" alt="Microsoft Fabric Certificate" class="cert-image">
+                                    <div class="cert-card-badges">
+                                        <span class="cert-badgebadge badge-featured"><i class="fa-solid fa-star"></i> Featured</span>
+                                        <span class="cert-badgebadge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                                    </div>
+                                </div>
+                                <div class="cert-card-body">
+                                    <div class="cert-org-row">
+                                        <i class="fa-brands fa-microsoft cert-org-icon Microsoft"></i>
+                                        <span class="cert-org-name">Microsoft</span>
+                                    </div>
+                                    <h3 class="cert-title">Microsoft DP-700: Fabric Data Engineer Associate</h3>
+                                    <p class="cert-description">
+                                        Validated expertise in Microsoft Fabric, data engineering pipelines, data integration, analytics solutions, and modern data architecture.
+                                    </p>
+                                    <div class="cert-meta-bottom">
+                                        <span class="cert-category-tag">Data Engineering</span>
+                                        <a href="assets/cert5.png" target="_blank" rel="noopener noreferrer" class="btn-cert-view">
+                                            <span>View Certificate</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Featured Certification 2: Oracle AI Foundations -->
+                            <div class="cert-card featured-cert">
+                                <div class="cert-thumbnail-wrapper">
+                                    <img src="assets/cert3.png" alt="Oracle AI Foundations Certificate" class="cert-image">
+                                    <div class="cert-card-badges">
+                                        <span class="cert-badgebadge badge-featured"><i class="fa-solid fa-star"></i> Featured</span>
+                                        <span class="cert-badgebadge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                                    </div>
+                                </div>
+                                <div class="cert-card-body">
+                                    <div class="cert-org-row">
+                                        <i class="fa-solid fa-cube cert-org-icon Oracle"></i>
+                                        <span class="cert-org-name">Oracle</span>
+                                    </div>
+                                    <h3 class="cert-title">Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate</h3>
+                                    <p class="cert-description">
+                                        Certified in Artificial Intelligence fundamentals, Machine Learning concepts, Generative AI, and Oracle AI services.
+                                    </p>
+                                    <div class="cert-meta-bottom">
+                                        <span class="cert-category-tag">Artificial Intelligence</span>
+                                        <a href="assets/cert3.png" target="_blank" rel="noopener noreferrer" class="btn-cert-view">
+                                            <span>View Certificate</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Featured Certification 3: Oracle Data Science Professional -->
+                            <div class="cert-card featured-cert">
+                                <div class="cert-thumbnail-wrapper">
+                                    <img src="assets/cert4.png" alt="Oracle Data Science Certificate" class="cert-image">
+                                    <div class="cert-card-badges">
+                                        <span class="cert-badgebadge badge-featured"><i class="fa-solid fa-star"></i> Featured</span>
+                                        <span class="cert-badgebadge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                                    </div>
+                                </div>
+                                <div class="cert-card-body">
+                                    <div class="cert-org-row">
+                                        <i class="fa-solid fa-database cert-org-icon Oracle"></i>
+                                        <span class="cert-org-name">Oracle</span>
+                                    </div>
+                                    <h3 class="cert-title">Oracle Cloud Infrastructure 2025 Certified Data Science Professional</h3>
+                                    <p class="cert-description">
+                                        Demonstrates expertise in Data Science concepts, Machine Learning workflows, data analysis, and AI-driven analytics.
+                                    </p>
+                                    <div class="cert-meta-bottom">
+                                        <span class="cert-category-tag">Data Science</span>
+                                        <a href="assets/cert4.png" target="_blank" rel="noopener noreferrer" class="btn-cert-view">
+                                            <span>View Certificate</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Certification 4: NPTEL - Python for Data Science -->
+                            <div class="cert-card">
+                                <div class="cert-thumbnail-wrapper placeholder-thumbnail">
+                                    <div class="placeholder-pattern">
+                                        <i class="fa-solid fa-graduation-cap"></i>
+                                        <span class="placeholder-org">NPTEL Certificate</span>
+                                    </div>
+                                    <div class="cert-card-badges">
+                                        <span class="cert-badgebadge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                                    </div>
+                                </div>
+                                <div class="cert-card-body">
+                                    <div class="cert-org-row">
+                                        <i class="fa-solid fa-university cert-org-icon NPTEL"></i>
+                                        <span class="cert-org-name">NPTEL</span>
+                                    </div>
+                                    <h3 class="cert-title">NPTEL - Python for Data Science</h3>
+                                    <p class="cert-description">
+                                        Successfully completed the NPTEL course covering Python programming, data analysis, and scientific computing.
+                                    </p>
+                                    <div class="cert-meta-bottom">
+                                        <span class="cert-category-tag">Python & Data Science</span>
+                                        <button class="btn-cert-view btn-view-disabled" disabled>
+                                            <span>Verified Online</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Certification 5: Infosys Python -->
+                            <div class="cert-card">
+                                <div class="cert-thumbnail-wrapper">
+                                    <img src="assets/cert1.png" alt="Infosys Python Certificate" class="cert-image">
+                                    <div class="cert-card-badges">
+                                        <span class="cert-badgebadge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                                    </div>
+                                </div>
+                                <div class="cert-card-body">
+                                    <div class="cert-org-row">
+                                        <i class="fa-solid fa-laptop cert-org-icon Infosys"></i>
+                                        <span class="cert-org-name">Infosys Springboard</span>
+                                    </div>
+                                    <h3 class="cert-title">Infosys Springboard - Introduction to Python</h3>
+                                    <p class="cert-description">
+                                        Completed foundational training in Python programming, problem-solving, and core programming concepts.
+                                    </p>
+                                    <div class="cert-meta-bottom">
+                                        <span class="cert-category-tag">Programming</span>
+                                        <a href="assets/cert1.png" target="_blank" rel="noopener noreferrer" class="btn-cert-view">
+                                            <span>View Certificate</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Certification 6: Infosys AI -->
+                            <div class="cert-card">
+                                <div class="cert-thumbnail-wrapper">
+                                    <img src="assets/cert2.png" alt="Infosys AI Certificate" class="cert-image">
+                                    <div class="cert-card-badges">
+                                        <span class="cert-badgebadge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                                    </div>
+                                </div>
+                                <div class="cert-card-body">
+                                    <div class="cert-org-row">
+                                        <i class="fa-solid fa-robot cert-org-icon Infosys"></i>
+                                        <span class="cert-org-name">Infosys Springboard</span>
+                                    </div>
+                                    <h3 class="cert-title">Infosys Springboard - Introduction to Artificial Intelligence</h3>
+                                    <p class="cert-description">
+                                        Successfully completed foundational training in Artificial Intelligence concepts, applications, and intelligent systems.
+                                    </p>
+                                    <div class="cert-meta-bottom">
+                                        <span class="cert-category-tag">Artificial Intelligence</span>
+                                        <a href="assets/cert2.png" target="_blank" rel="noopener noreferrer" class="btn-cert-view">
+                                            <span>View Certificate</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- PANEL 2: Achievements Tab Grid -->
+                    <div class="tab-panel" id="achievementsPanel">
+                        <div class="achievements-grid-wrapper">
+                            
+                            <!-- Achievement 1 -->
+                            <div class="achievement-card">
+                                <div class="achievement-icon-box">
+                                    <i class="fa-solid fa-user-gear"></i>
+                                </div>
+                                <h3 class="achievement-title">IEEE Student Member</h3>
+                                <p class="achievement-description">
+                                    Active member of IEEE Student Branch participating in technical events, workshops, innovation activities, and collaborative initiatives.
+                                </p>
+                            </div>
+
+                            <!-- Achievement 2 -->
+                            <div class="achievement-card">
+                                <div class="achievement-icon-box">
+                                    <i class="fa-solid fa-laptop-code"></i>
+                                </div>
+                                <h3 class="achievement-title">Hackathon Participation</h3>
+                                <p class="achievement-description">
+                                    Actively participated in hackathons and innovation challenges focused on solving real-world problems using technology.
+                                </p>
+                            </div>
+
+                            <!-- Achievement 3 -->
+                            <div class="achievement-card">
+                                <div class="achievement-icon-box">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="achievement-title">Academic Excellence</h3>
+                                <p class="achievement-description">
+                                    Maintaining a strong academic performance with a CGPA of 8.36 in B.Tech CSE (Artificial Intelligence and Machine Learning).
+                                </p>
+                            </div>
+
+                            <!-- Achievement 4 -->
+                            <div class="achievement-card">
+                                <div class="achievement-icon-box">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                <h3 class="achievement-title">Project Development</h3>
+                                <p class="achievement-description">
+                                    Successfully developed multiple Machine Learning, Data Science, AI, and Web Development projects demonstrating practical expertise.
+                                </p>
+                            </div>
+
+                            <!-- Achievement 5 -->
+                            <div class="achievement-card">
+                                <div class="achievement-icon-box">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <h3 class="achievement-title">Continuous Learning</h3>
+                                <p class="achievement-description">
+                                    Continuously enhancing technical skills through certifications, online courses, workshops, and hands-on project development.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Quote Section -->
+                <div class="achievements-quote-cta" id="achievementsQuote">
+                    <p class="motivational-quote">
+                        "Learning never exhausts the mind. Every certification and achievement represents a step toward excellence."
+                    </p>
+                    <div class="decorative-medal-wrapper">
+                        <i class="fa-solid fa-medal decorative-medal"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Projects Portfolio Section -->
         <section id="projects" class="projects-section">
             <!-- Background Decorative Grid and Shapes -->
@@ -1083,7 +1420,158 @@
                 </div>
             </div>
         </section>
+
+        <!-- Contact Me Section -->
+        <section id="contact" class="contact-section">
+            <!-- Background grids/glows and floating tech background elements -->
+            <div class="bg-decorative">
+                <div class="bg-grid"></div>
+                <div class="bg-glow bg-glow-contact"></div>
+            </div>
+
+            <div class="contact-section-container">
+                <!-- Section Header -->
+                <div class="contact-header" id="contactHeader">
+                    <div class="contact-header-badge">
+                        <span class="badge-icon-contact">📬</span>
+                        <span class="badge-text-contact">Get In Touch</span>
+                    </div>
+                    <h2 class="contact-main-heading">Contact Me</h2>
+                    <p class="contact-subtitle">
+                        I'm always open to discussing new opportunities, collaborations, innovative projects, or simply connecting with like-minded individuals. Feel free to reach out!
+                    </p>
+                </div>
+
+                <!-- Two Column Layout Container -->
+                <div class="contact-container" id="contactContent">
+                    <!-- Left Side: Contact Information Card -->
+                    <div class="contact-info-wrapper">
+                        <div class="contact-info-card">
+                            <h3 class="contact-card-title-left">Let's Connect</h3>
+                            <p class="contact-card-desc-left">
+                                Whether you have a project idea, internship opportunity, collaboration proposal, or just want to say hello, I'd love to hear from you.
+                            </p>
+
+                            <!-- Information Subcards -->
+                            <div class="contact-details-grid">
+                                <!-- Email Card -->
+                                <div class="contact-detail-item">
+                                    <div class="detail-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h4 class="detail-title">Email</h4>
+                                        <a href="mailto:jiyadeshmukh389@gmail.com" class="detail-value">jiyadeshmukh389@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <!-- Phone Card -->
+                                <div class="contact-detail-item">
+                                    <div class="detail-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h4 class="detail-title">Phone</h4>
+                                        <a href="tel:+916232150937" class="detail-value">+91 6232150937</a>
+                                    </div>
+                                </div>
+
+                                <!-- Location Card -->
+                                <div class="contact-detail-item">
+                                    <div class="detail-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h4 class="detail-title">Location</h4>
+                                        <span class="detail-value text-static">Indore, Madhya Pradesh, India</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Social Follow Section -->
+                            <div class="contact-social-section">
+                                <h4 class="social-section-title">Follow Me</h4>
+                                <div class="circular-social-icons">
+                                    <!-- GitHub Link -->
+                                    <a href="https://github.com/Jiya0937" target="_blank" rel="noopener noreferrer" class="circular-social-link tooltip-btn" data-tooltip="GitHub Profile" aria-label="GitHub Profile">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                    </a>
+
+                                    <!-- LinkedIn Link -->
+                                    <a href="https://linkedin.com/in/jiya-deshmukh-32349a354/" target="_blank" rel="noopener noreferrer" class="circular-social-link tooltip-btn" data-tooltip="LinkedIn Profile" aria-label="LinkedIn Profile">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                            <rect x="2" y="9" width="4" height="12"></rect>
+                                            <circle cx="4" cy="4" r="2"></circle>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Contact Form Card -->
+                    <div class="contact-form-wrapper">
+                        <div class="contact-form-card">
+                            <h3 class="contact-card-title-right">Send Me a Message</h3>
+                            
+                            <form id="contactForm" class="contact-form-element" autocomplete="off" novalidate>
+                                <!-- Full Name -->
+                                <div class="form-group">
+                                    <label for="formName" class="form-label">Full Name</label>
+                                    <input type="text" id="formName" class="form-input" placeholder="Enter your full name" required>
+                                    <span class="form-error-msg" id="nameError">Full name is required</span>
+                                </div>
+
+                                <!-- Email Address -->
+                                <div class="form-group">
+                                    <label for="formEmail" class="form-label">Email Address</label>
+                                    <input type="email" id="formEmail" class="form-input" placeholder="Enter your email address" required>
+                                    <span class="form-error-msg" id="emailError">Please enter a valid email address</span>
+                                </div>
+
+                                <!-- Subject -->
+                                <div class="form-group">
+                                    <label for="formSubject" class="form-label">Subject</label>
+                                    <input type="text" id="formSubject" class="form-input" placeholder="Enter message subject" required>
+                                    <span class="form-error-msg" id="subjectError">Subject is required</span>
+                                </div>
+
+                                <!-- Message Textarea -->
+                                <div class="form-group">
+                                    <label for="formMessage" class="form-label">Message</label>
+                                    <textarea id="formMessage" class="form-textarea" rows="5" placeholder="Write your message here..." required></textarea>
+                                    <span class="form-error-msg" id="messageError">Message content is required</span>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-primary btn-submit-message" id="btnSubmit">
+                                    <span>Send Message</span>
+                                    <svg class="btn-icon btn-submit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- Success / Error Toast notification popups -->
+    <div class="toast-notification-container" id="toastContainer"></div>
 
     <!-- Simple Bottom Footer Bar -->
     <footer class="footer-simple">
@@ -1097,5 +1585,7 @@
 
     <!-- Main JavaScript Logic -->
     <script src="js/script.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
 </html>
