@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollSpy();
     initAboutSectionReveal();
     initSkillsSectionReveal();
+    initProjectsSectionReveal();
+    initProjectFilter();
 });
 
 /**
@@ -293,4 +295,89 @@ function initSkillsSectionReveal() {
     });
 
     observer.observe(skillsSection);
+}
+
+/**
+ * 10. Scroll Reveal entrance sequences for Projects Section using Intersection Observer
+ */
+function initProjectsSectionReveal() {
+    const projectsSection = document.getElementById('projects');
+    if (!projectsSection) return;
+
+    const header = document.getElementById('projectsHeader');
+    const filter = document.getElementById('projectsFilter');
+    const grid = document.getElementById('projectsGrid');
+    const cta = document.getElementById('projectsCta');
+
+    const elementsToReveal = [
+        { el: header, delay: 100 },
+        { el: filter, delay: 220 },
+        { el: grid, delay: 350 },
+        { el: cta, delay: 480 }
+    ];
+
+    // Set initial state
+    elementsToReveal.forEach(item => {
+        if (item.el) {
+            item.el.style.opacity = '0';
+            item.el.style.transform = 'translateY(30px)';
+            item.el.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                elementsToReveal.forEach(item => {
+                    if (item.el) {
+                        setTimeout(() => {
+                            item.el.style.opacity = '1';
+                            item.el.style.transform = 'translateY(0)';
+                        }, item.delay);
+                    }
+                });
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.08 // Trigger when 8% is visible
+    });
+
+    observer.observe(projectsSection);
+}
+
+/**
+ * 11. Dynamic Project Client-side Filtering Logic
+ */
+function initProjectFilter() {
+    const filterContainer = document.getElementById('projectsFilter');
+    const grid = document.getElementById('projectsGrid');
+    if (!filterContainer || !grid) return;
+
+    const buttons = filterContainer.querySelectorAll('.filter-btn');
+    const cards = grid.querySelectorAll('.project-card');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active classes
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            const filterValue = button.getAttribute('data-filter');
+
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (filterValue === 'all' || cardCategory === filterValue) {
+                    card.classList.remove('filtered-out');
+                    // Reset inline styling so animations reset smoothly
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                } else {
+                    card.classList.add('filtered-out');
+                }
+            });
+        });
+    });
 }
