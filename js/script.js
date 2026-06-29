@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileNavigation();
     initEntranceAnimation();
     initCVDownloadFeedback();
+    initScrollSpy();
+    initAboutSectionReveal();
 });
 
 /**
@@ -152,4 +154,88 @@ function initEntranceAnimation() {
             }, item.delay);
         }
     });
+}
+
+/**
+ * 7. Navigation Scroll Spy (Active link indicator on scroll)
+ */
+function initScrollSpy() {
+    const sections = document.querySelectorAll('section');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    const handleSpy = () => {
+        let currentSectionId = '';
+        const scrollPosition = window.scrollY + 120; // offset to trigger slightly before center screen
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < (sectionTop + sectionHeight)) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        if (currentSectionId) {
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${currentSectionId}`) {
+                    item.classList.add('active');
+                }
+            });
+        }
+    };
+
+    window.addEventListener('scroll', handleSpy);
+    handleSpy(); // Initialize once on page load
+}
+
+/**
+ * 8. Scroll Reveal entrance sequences for About Section using Intersection Observer
+ */
+function initAboutSectionReveal() {
+    const aboutSection = document.getElementById('about');
+    if (!aboutSection) return;
+
+    const elementsToReveal = [
+        { selector: '#aboutHeading', delay: 100 },
+        { selector: '#aboutSubtitle', delay: 220 },
+        { selector: '#aboutDescription', delay: 350 },
+        { selector: '#aboutCards', delay: 480 },
+        { selector: '.illustration-frame', delay: 180 },
+        { selector: '.about-visual-badge', delay: 300 }
+    ];
+
+    // Set initial state
+    elementsToReveal.forEach(item => {
+        const el = aboutSection.querySelector(item.selector);
+        if (el) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    // Create observer
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Stagger transition triggers
+                elementsToReveal.forEach(item => {
+                    const el = aboutSection.querySelector(item.selector);
+                    if (el) {
+                        setTimeout(() => {
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }, item.delay);
+                    }
+                });
+                // Unobserve section once revealed
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12 // Trigger when 12% is visible
+    });
+
+    observer.observe(aboutSection);
 }
