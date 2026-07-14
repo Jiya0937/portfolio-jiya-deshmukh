@@ -855,5 +855,5 @@ function animateAcademicStats() {
         }
 
         requestAnimationFrame(updateCount);
-    });
+3    });
 }
