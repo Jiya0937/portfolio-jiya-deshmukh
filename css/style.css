@@ -603,8 +603,8 @@ h4 {
 .hero-image-frame {
     position: absolute;
     inset: 0;                 /* Fill the parent container */
-    width: 120%;
-    height: 130%;
+    width: 110%;
+    height: 120%;
     overflow: hidden;
     border-radius: 10px;      /* or 50% for circular */
     background: var(--color-bg-secondary);
